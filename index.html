@@ -245,6 +245,9 @@
                 <option value="USD">$</option>
                 <option value="EUR">€</option>
             </select>
+            <label class="radio-option">
+                <input type="checkbox" id="isNegotiable" name="isNegotiable"> Торг
+            </label>
         </div>
     <div class="radio-group">
         <label class="radio-option">
@@ -292,25 +295,28 @@
         const negotiableRadio = document.querySelector('#negotiablePrice');
         const freeRadio = document.querySelector('#isFree');
         const specifiedPriceRadio = document.querySelector('#specifiedPrice');
+        const isNegotiableCheckbox = document.querySelector('#isNegotiable');
 
-        if (negotiableRadio && freeRadio && specifiedPriceRadio && priceInput && priceCurrency) {
-            const updatePriceField = () => {
-                const isDisabled = negotiableRadio.checked || freeRadio.checked;
-                priceInput.disabled = isDisabled;
-                priceCurrency.disabled = isDisabled;
-                priceInput.required = !isDisabled;
-                
-                if (isDisabled) {
-                    priceInput.value = '';
-                }
-            };
+        if (negotiableRadio && freeRadio && specifiedPriceRadio && priceInput && priceCurrency && isNegotiableCheckbox) {
+        const updatePriceField = () => {
+            const isDisabled = negotiableRadio.checked || freeRadio.checked;
+            priceInput.disabled = isDisabled;
+            priceCurrency.disabled = isDisabled;
+            isNegotiableCheckbox.disabled = isDisabled;
+            priceInput.required = !isDisabled;
+            
+            if (isDisabled) {
+                priceInput.value = '';
+                isNegotiableCheckbox.checked = false;
+            }
+        };
 
-            negotiableRadio.addEventListener('change', updatePriceField);
-            freeRadio.addEventListener('change', updatePriceField);
-            specifiedPriceRadio.addEventListener('change', updatePriceField);
-            updatePriceField();
-        }
+        negotiableRadio.addEventListener('change', updatePriceField);
+        freeRadio.addEventListener('change', updatePriceField);
+        specifiedPriceRadio.addEventListener('change', updatePriceField);
+        updatePriceField();
     }
+}
 
 
     // Визначаємо, яку форму показувати
@@ -374,7 +380,7 @@
         document.getElementById('finalPrice').value = totalPrice;
     }
 
-    
+
 // Функція для форматування ціни
 function formatPriceInput(input) {
     // Видаляємо всі пробіли та замінюємо кому на крапку
