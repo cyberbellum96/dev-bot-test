@@ -373,6 +373,29 @@
         }
         document.getElementById('finalPrice').value = totalPrice;
     }
+    function formatPriceInput(input) {
+        const value = input.value.replace(/\s+/g, ''); // видаляємо всі пробіли для коректного форматування
+        if (!isNaN(value) && value.length > 0) {
+            const formattedValue = parseFloat(value).toLocaleString('uk-UA', {
+                minimumFractionDigits: 2, // два десяткових знаки
+                maximumFractionDigits: 2
+            });
+            input.value = formattedValue;
+        }
+    }
+
+    // Додаємо обробник для поля "Продаж" (SellingForm)
+    const sellingPriceInput = document.querySelector('#sellingForm #price');
+    sellingPriceInput?.addEventListener('input', function() {
+        formatPriceInput(sellingPriceInput);
+    });
+
+    // Додаємо обробник для поля "Купівля" (BuyingForm)
+    const buyingMaxPriceInput = document.querySelector('#buyingForm #maxPrice');
+    buyingMaxPriceInput?.addEventListener('input', function() {
+        formatPriceInput(buyingMaxPriceInput);
+    });
+
 
     // Оновлюємо обробник форми реклами
     document.getElementById('advertisingForm')?.addEventListener('submit', function(e) {
