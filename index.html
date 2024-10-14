@@ -188,7 +188,7 @@
     <div class="form-group">
         <label for="maxPrice">Максимальна ціна:</label>
         <div class="price-input">
-            <input type="number" id="maxPrice" required>
+            <input type="text" id="maxPrice" required>
             <select id="maxPriceCurrency" class="currency-select">
                 <option value="UAH">₴</option>
                 <option value="USD">$</option>
@@ -239,7 +239,7 @@
     <div class="form-group">
         <label for="price">Ціна:</label>
         <div class="price-input">
-            <input type="number" id="price">
+            <input type="text" id="price">
             <select id="priceCurrency" class="currency-select">
                 <option value="UAH">₴</option>
                 <option value="USD">$</option>
@@ -373,28 +373,64 @@
         }
         document.getElementById('finalPrice').value = totalPrice;
     }
-    function formatPriceInput(input) {
-        const value = input.value.replace(/\s+/g, ''); // видаляємо всі пробіли для коректного форматування
-        if (!isNaN(value) && value.length > 0) {
-            const formattedValue = parseFloat(value).toLocaleString('uk-UA', {
-                minimumFractionDigits: 2, // два десяткових знаки
-                maximumFractionDigits: 2
-            });
-            input.value = formattedValue;
-        }
+
+
+
+    
+// Функція для форматування ціни
+function formatPriceInput(input) {
+    // Видаляємо всі пробіли та замінюємо кому на крапку
+    let value = input.value.replace(/\s+/g, '').replace(',', '.');
+
+    // Перевіряємо, чи введене значення є числом
+    if (!isNaN(value) && value.length > 0) {
+        // Форматуємо число з двома десятковими знаками та пробілами між тисячами
+        const formattedValue = parseFloat(value).toLocaleString('uk-UA', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+        input.value = formattedValue;
+    } else {
+        // Якщо введено недопустимі символи, очищаємо поле
+        input.value = '';
+    }
+}
+
+// Додаємо обробники подій для полів "Продаж" та "Купівля"
+function addPriceFormatting() {
+    // Поле "Продаж" (SellingForm)
+    const sellingPriceInput = document.querySelector('#sellingForm #price');
+    if (sellingPriceInput) {
+        // Форматуємо після завершення введення (на подію blur)
+        sellingPriceInput.addEventListener('blur', function() {
+            formatPriceInput(sellingPriceInput);
+        });
+
+        // Опціонально: Форматуємо під час введення (на подію input)
+        sellingPriceInput.addEventListener('input', function() {
+            // Дозволяємо вводити тільки числа, пробіли та крапки
+            sellingPriceInput.value = sellingPriceInput.value.replace(/[^0-9.,\s]/g, '');
+        });
     }
 
-    // Додаємо обробник для поля "Продаж" (SellingForm)
-    const sellingPriceInput = document.querySelector('#sellingForm #price');
-    sellingPriceInput?.addEventListener('input', function() {
-        formatPriceInput(sellingPriceInput);
-    });
-
-    // Додаємо обробник для поля "Купівля" (BuyingForm)
+    // Поле "Купівля" (BuyingForm)
     const buyingMaxPriceInput = document.querySelector('#buyingForm #maxPrice');
-    buyingMaxPriceInput?.addEventListener('input', function() {
-        formatPriceInput(buyingMaxPriceInput);
-    });
+    if (buyingMaxPriceInput) {
+        // Форматуємо після завершення введення (на подію blur)
+        buyingMaxPriceInput.addEventListener('blur', function() {
+            formatPriceInput(buyingMaxPriceInput);
+        });
+
+        // Опціонально: Форматуємо під час введення (на подію input)
+        buyingMaxPriceInput.addEventListener('input', function() {
+            // Дозволяємо вводити тільки числа, пробіли та крапки
+            buyingMaxPriceInput.value = buyingMaxPriceInput.value.replace(/[^0-9.,\s]/g, '');
+        });
+    }
+}
+
+// Викликаємо функцію додавання обробників після визначення всіх функцій
+addPriceFormatting();
 
 
     // Оновлюємо обробник форми реклами
