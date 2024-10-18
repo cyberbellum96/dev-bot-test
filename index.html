@@ -447,32 +447,32 @@
     // Обробники подій для кожної форми
     const forms = ['announcementForm', 'advertisingForm', 'buyingForm', 'sellingForm'];
     forms.forEach(formId => {
-        document.getElementById(formId)?.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = {};
-            
-            // Збираємо всі поля форми
-            this.querySelectorAll('input, textarea, select').forEach(element => {
-                if (element.type === 'radio') {
-                    if (element.checked) {
-                        formData[element.id] = true;
-                    }
-                } else if (element.type === 'checkbox') {
-                    formData[element.id] = element.checked;
-                } else {
-                    formData[element.id] = element.value;
+    document.getElementById(formId)?.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = {};
+        
+        // Збираємо всі поля форми
+        this.querySelectorAll('input, textarea, select').forEach(element => {
+            if (element.type === 'radio') {
+                if (element.checked) {
+                    formData[element.name] = element.value;
                 }
-            });
-            
-            // Додаємо тип форми
-            formData.formType = formId.replace('Form', '');
-            console.log(formData); // Додайте це перед tg.sendData
-
-            // Відправляємо дані в Telegram
-            tg.sendData(JSON.stringify(formData));
-            tg.close();
+            } else if (element.type === 'checkbox') {
+                formData[element.id] = element.checked;
+            } else {
+                formData[element.id] = element.value;
+            }
         });
+        
+        // Додаємо тип форми
+        formData.formType = formId.replace('Form', '');
+        console.log(formData);
+
+        // Відправляємо дані в Telegram
+        tg.sendData(JSON.stringify(formData));
+        tg.close();
     });
+});
 
     // Показуємо потрібну форму при завантаженні
     showForm();
