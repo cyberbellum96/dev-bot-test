@@ -139,14 +139,15 @@
                 <div class="mb-3">
                     <label class="form-label">Розмістити рекламу на:</label>
                     <div class="btn-group w-100" role="group" aria-label="Тривалість реклами">
-                        <input type="radio" class="btn-check" name="duration" value="12" onchange="updatePrice()">
-                        <label class="btn btn-outline-primary">12 годин</label>
+                        <label class="btn btn-outline-primary">                            
+                            <input type="radio" class="btn-check" name="duration" value="12" onchange="updatePrice()"> 12 годин
+                        </label>
                         <input type="radio" class="btn-check" name="duration" id="duration24" value="24" onchange="updatePrice()">
                         <label class="btn btn-outline-primary" for="duration24">1 добу</label>
                         <input type="radio" class="btn-check" name="duration" id="duration72" value="72" onchange="updatePrice()">
                         <label class="btn btn-outline-primary" for="duration72">3 доби</label>
-                        <input type="radio" class="btn-check" name="duration" value="168" onchange="updatePrice()">
-                        <label class="btn btn-outline-primary">7 діб</label>
+                        <input type="radio" class="btn-check" name="duration" id="duration168" value="168" onchange="updatePrice()">
+                        <label class="btn btn-outline-primary" for="duration168">7 діб</label>
                     </div>
                     <p class="form-text text-muted mt-2">Після завершення періоду реклами - публікація видаляється!</p>
                 </div>
