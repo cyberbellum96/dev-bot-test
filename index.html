@@ -132,8 +132,8 @@
                     <label for="adType" class="form-label">Тип реклами:</label>
                     <select class="form-select" id="adType" required onchange="updatePrice()">
                         <option value="">Оберіть тип реклами</option>
-                        <option value="publication">Публікація</option>
-                        <option value="publication-pin">Публікація + закріпити</option>
+                        <option value="Публікація">Публікація</option>
+                        <option value="Публікація + Закріплення">Публікація + Закріплення</option>
                     </select>
                 </div>
                 <div class="mb-3">
@@ -355,9 +355,9 @@
         let totalPrice = 0;
 
         // Базова ціна в залежності від типу реклами
-        if (adType === 'publication') {
+        if (adType === 'Публікація') {
             totalPrice += 50;
-        } else if (adType === 'publication-pin') {
+        } else if (adType === 'Публікація + Закріплення') {
             totalPrice += 250;
         }
 
