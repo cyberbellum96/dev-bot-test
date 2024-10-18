@@ -444,6 +444,7 @@
         }
     }
 // Обробники подій для кожної форми
+// Обробники подій для кожної форми
 const forms = ['announcementForm', 'advertisingForm', 'buyingForm', 'sellingForm'];
 forms.forEach(formId => {
     document.getElementById(formId)?.addEventListener('submit', function(e) {
@@ -473,15 +474,14 @@ forms.forEach(formId => {
                 formData.priceCurrency = document.getElementById('priceCurrency').value;
             } else if (priceType === 'negotiablePrice') {
                 formData.price = 'Договірна';
+                formData.priceCurrency = ''; // Явно встановлюємо пусту валюту
             } else if (priceType === 'isFree') {
                 formData.price = 'Віддам даром';
+                formData.priceCurrency = ''; // Явно встановлюємо пусту валюту
             }
             
-            // Видаляємо зайві поля, якщо ціна не вказана
-            if (priceType !== 'specifiedPrice') {
-                delete formData.priceCurrency;
-                delete formData.isNegotiable;
-            }
+            // Зберігаємо інформацію про торг, навіть якщо ціна не вказана
+            formData.isNegotiable = document.getElementById('isNegotiable').checked;
         }
         
         // Додаємо тип форми
