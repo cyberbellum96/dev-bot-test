@@ -1,297 +1,291 @@
 <!DOCTYPE html>
-<html>
+<html lang="uk">
 <head>
     <title>Форма оголошення</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <style>
+        :root {
+            --primary-yellow: #FFD700;
+            --secondary-yellow: #FFC300;
+            --dark-yellow: #FFA000;
+        }
         body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            background-color: #f0f2f5;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
             color: #333;
         }
-        .form-group {
-            margin-bottom: 15px;
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 50px;
         }
-        label {
-            display: block;
-            margin-bottom: 5px;
+        h2 {
+            color: var(--dark-yellow);
+            border-bottom: 2px solid var(--primary-yellow);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .form-label {
             font-weight: bold;
+            color: #555;
         }
-        input, textarea, select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
+        .form-control:focus, .form-select:focus {
+            border-color: var(--secondary-yellow);
+            box-shadow: 0 0 0 0.2rem rgba(255, 215, 0, 0.25);
         }
-        input[type="radio"], input[type="checkbox"] {
-            width: auto;
-            margin-right: 5px;
+        .btn-primary {
+            background-color: var(--primary-yellow);
+            border-color: var(--primary-yellow);
+            color: #333;
         }
-        .radio-group {
-            margin: 10px 0;
-        }
-        .radio-option {
-            margin-right: 15px;
-            display: inline-flex;
-            align-items: center;
-            font-size: 12px;
-        }
-        button {
-            background-color: #0088cc;
+        .btn-primary:hover {
+            background-color: var(--dark-yellow);
+            border-color: var(--dark-yellow);
             color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
         }
-        button:hover {
-            background-color: #006699;
+        .checkbox-group, .radio-group {
+            background-color: #fff9c4;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
         }
         .price-input {
             display: flex;
             gap: 10px;
-            margin-bottom: 10px;
-        }
-        .price-input input {
-            flex: 1;
+            align-items: center;
         }
         .currency-select {
-            width: 60px;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background-color: white;
-        }
-        .checkbox-group {
-            margin-top: 15px;
-            padding: 10px;
-            background-color: #f8f9fa;
-            border-radius: 4px;
+            width: auto;
         }
     </style>
 </head>
 <body>
 
-<!-- Форма для розділу "Оголошення" -->
-<form id="announcementForm" style="display: none;">
-    <h2>Подати оголошення</h2>
-    <div class="form-group">
-        <label for="title">Заголовок оголошення:</label>
-        <input type="text" id="title" required>
-    </div>
-    <div class="form-group">
-        <label for="category">Категорія:</label>
-        <select id="category" required>
-            <option value="">Оберіть категорію</option>
-            <option value="jobs">Робота</option>
-            <option value="services">Послуги</option>
-            <option value="events">Події</option>
-            <option value="realty">Нерухомість</option>
-            <option value="education">Освіта</option>
-            <option value="health">Здоров'я</option>
-            <option value="entertainment">Розваги</option>
-            <option value="other">Інше</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="description">Текст оголошення:</label>
-        <textarea id="description" rows="4" required></textarea>
-    </div>
-    <div class="form-group">
-        <label for="contact">Контактні дані:</label>
-        <input type="text" id="contact" required>
-    </div>
-    <div class="checkbox-group">
-        <label class="radio-option">
-            <input type="checkbox" id="isPinned" name="isPinned">
-            Закріпити оголошення на 3 доби за 30 грн
-        </label>
-    </div>
-    <button type="submit">Надіслати оголошення</button>
-</form>
+<div class="container">
+    <!-- Форма для розділу "Оголошення" -->
+    <form id="announcementForm" style="display: none;">
+        <h2 class="text-center mb-4">Подати оголошення</h2>
+        <div class="mb-3">
+            <label for="title" class="form-label">Заголовок оголошення:</label>
+            <input type="text" class="form-control" id="title" required>
+        </div>
+        <div class="mb-3">
+            <label for="category" class="form-label">Категорія:</label>
+            <select class="form-select" id="category" required>
+                <option value="">Оберіть категорію</option>
+                <option value="jobs">Робота</option>
+                <option value="services">Послуги</option>
+                <option value="events">Події</option>
+                <option value="realty">Нерухомість</option>
+                <option value="education">Освіта</option>
+                <option value="health">Здоров'я</option>
+                <option value="entertainment">Розваги</option>
+                <option value="other">Інше</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Текст оголошення:</label>
+            <textarea class="form-control" id="description" rows="4" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="contact" class="form-label">Контактні дані:</label>
+            <input type="text" class="form-control" id="contact" required>
+        </div>
+        <div class="checkbox-group">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="isPinned" name="isPinned">
+                <label class="form-check-label" for="isPinned">
+                    Закріпити оголошення на 3 доби за 30 грн
+                </label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Надіслати оголошення</button>
+    </form>
 
-<!-- Форма для розділу "Реклама" -->
-<form id="advertisingForm" style="display: none;">
-    <h2>Розмістити рекламу</h2>
-    <div class="form-group">
-        <label for="companyName">Назва компанії:</label>
-        <input type="text" id="companyName" required>
-    </div>
-    <div class="form-group">
-        <label for="adType">Тип реклами:</label>
-        <select id="adType" required onchange="updatePrice()">
-            <option value="">Оберіть тип реклами</option>
-            <option value="publication">Публікація</option>
-            <option value="publication-pin">Публікація + закріпити</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label>Розмістити рекламу на:</label>
+    <!-- Форма для розділу "Реклама" -->
+    <form id="advertisingForm" style="display: none;">
+        <h2 class="text-center mb-4">Розмістити рекламу</h2>
+        <div class="mb-3">
+            <label for="companyName" class="form-label">Назва компанії:</label>
+            <input type="text" class="form-control" id="companyName" required>
+        </div>
+        <div class="mb-3">
+            <label for="adType" class="form-label">Тип реклами:</label>
+            <select class="form-select" id="adType" required onchange="updatePrice()">
+                <option value="">Оберіть тип реклами</option>
+                <option value="publication">Публікація</option>
+                <option value="publication-pin">Публікація + закріпити</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Розмістити рекламу на:</label>
+            <div class="radio-group">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="duration" id="duration12" value="12" onchange="updatePrice()">
+                    <label class="form-check-label" for="duration12">12 годин</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="duration" id="duration24" value="24" onchange="updatePrice()">
+                    <label class="form-check-label" for="duration24">1 добу</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="duration" id="duration72" value="72" onchange="updatePrice()">
+                    <label class="form-check-label" for="duration72">3 доби</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="duration" id="duration168" value="168" onchange="updatePrice()">
+                    <label class="form-check-label" for="duration168">7 діб</label>
+                </div>
+            </div>
+            <p class="text-muted small mt-2">Після завершення періоду реклами - публікація видаляється!</p>
+        </div>
+        <div class="mb-3">
+            <label for="adDescription" class="form-label">Опис реклами:</label>
+            <textarea class="form-control" id="adDescription" rows="4" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="adContact" class="form-label">Контактна особа:</label>
+            <input type="text" class="form-control" id="adContact" required>
+        </div>
+        <div class="price-calculation alert alert-info">
+            <label>Розрахунок вартості: <span id="totalPrice">0</span> грн.</label>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Надіслати заявку</button>
+    </form>
+
+    <!-- Форма для розділу "Купівля" -->
+    <form id="buyingForm" style="display: none;">
+        <h2 class="text-center mb-4">Купівля товару</h2>
+        <div class="mb-3">
+            <label for="productName" class="form-label">Що шукаєте:</label>
+            <input type="text" class="form-control" id="productName" required>
+        </div>
+        <div class="mb-3">
+            <label for="buyingCategory" class="form-label">Категорія:</label>
+            <select class="form-select" id="buyingCategory" required>
+                <option value="">Оберіть категорію</option>
+                <option value="electronics">Електроніка</option>
+                <option value="furniture">Меблі</option>
+                <option value="transport">Транспорт</option>
+                <option value="clothing">Одяг та взуття</option>
+                <option value="sports">Спорт та відпочинок</option>
+                <option value="tools">Інструменти</option>
+                <option value="appliances">Побутова техніка</option>
+                <option value="toys">Іграшки</option>
+                <option value="books">Книги</option>
+                <option value="other">Інше</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="maxPrice" class="form-label">Максимальна ціна:</label>
+            <div class="price-input">
+                <input type="text" class="form-control" id="maxPrice" required>
+                <select id="maxPriceCurrency" class="form-select currency-select">
+                    <option value="UAH">₴</option>
+                    <option value="USD">$</option>
+                    <option value="EUR">€</option>
+                </select>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="buyerDescription" class="form-label">Додатковий опис:</label>
+            <textarea class="form-control" id="buyerDescription" rows="4"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="buyerContact" class="form-label">Контактні дані:</label>
+            <input type="text" class="form-control" id="buyerContact" required>
+        </div>
+        <div class="checkbox-group">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="isPinnedBuying" name="isPinned">
+                <label class="form-check-label" for="isPinnedBuying">
+                    Закріпити оголошення на 3 доби за 30 грн
+                </label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Надіслати запит</button>
+    </form>
+
+    <!-- Форма для розділу "Продаж" -->
+    <form id="sellingForm" style="display: none;">
+        <h2 class="text-center mb-4">Продаж товару</h2>
+        <div class="mb-3">
+            <label for="itemName" class="form-label">Назва товару:</label>
+            <input type="text" class="form-control" id="itemName" required>
+        </div>
+        <div class="mb-3">
+            <label for="sellingCategory" class="form-label">Категорія:</label>
+            <select class="form-select" id="sellingCategory" required>
+                <option value="">Оберіть категорію</option>
+                <option value="electronics">Електроніка</option>
+                <option value="furniture">Меблі</option>
+                <option value="transport">Транспорт</option>
+                <option value="clothing">Одяг та взуття</option>
+                <option value="sports">Спорт та відпочинок</option>
+                <option value="tools">Інструменти</option>
+                <option value="appliances">Побутова техніка</option>
+                <option value="toys">Іграшки</option>
+                <option value="books">Книги</option>
+                <option value="other">Інше</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="price" class="form-label">Ціна:</label>
+            <div class="price-input">
+                <input type="text" class="form-control" id="price">
+                <select id="priceCurrency" class="form-select currency-select">
+                    <option value="UAH">₴</option>
+                    <option value="USD">$</option>
+                    <option value="EUR">€</option>
+                </select>
+            </div>
+        </div>
         <div class="radio-group">
-            <label class="radio-option">
-                <input type="radio" name="duration" value="12" onchange="updatePrice()"> 12 годин
-            </label>
-            <label class="radio-option">
-                <input type="radio" name="duration" value="24" onchange="updatePrice()"> 1 добу
-            </label>
-            <label class="radio-option">
-                <input type="radio" name="duration" value="72" onchange="updatePrice()"> 3 доби
-            </label>
-            <label class="radio-option">
-                <input type="radio" name="duration" value="168" onchange="updatePrice()"> 7 діб
-            </label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="priceType" id="specifiedPrice" value="specifiedPrice" checked>
+                <label class="form-check-label" for="specifiedPrice">Вказати ціну</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="priceType" id="negotiablePrice" value="negotiablePrice">
+                <label class="form-check-label" for="negotiablePrice">Договірна</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="priceType" id="isFree" value="isFree">
+                <label class="form-check-label" for="isFree">Віддам даром</label>
+            </div>
         </div>
-        <p style="font-size: 10px; color: #666; margin-top: 5px;">Після завершення періоду реклами - публікація видаляється!</p>
-    </div>
-    <div class="form-group">
-        <label for="adDescription">Опис реклами:</label>
-        <textarea id="adDescription" rows="4" required></textarea>
-    </div>
-    <div class="form-group">
-        <label for="adContact">Контактна особа:</label>
-        <input type="text" id="adContact" required>
-    </div>
-    <div class="price-calculation" style="margin: 15px 0; padding: 10px; background-color: #f8f9fa; border-radius: 4px;">
-        <label>Розрахунок вартості: <span id="totalPrice">0</span> грн.</label>
-    </div>
-    <button type="submit">Надіслати заявку</button>
-</form>
-
-<!-- Форма для розділу "Купівля" -->
-<form id="buyingForm" style="display: none;">
-    <h2>Купівля товару</h2>
-    <div class="form-group">
-        <label for="productName">Що шукаєте:</label>
-        <input type="text" id="productName" required>
-    </div>
-    <div class="form-group">
-        <label for="buyingCategory">Категорія:</label>
-        <select id="buyingCategory" required>
-            <option value="">Оберіть категорію</option>
-            <option value="electronics">Електроніка</option>
-            <option value="furniture">Меблі</option>
-            <option value="transport">Транспорт</option>
-            <option value="clothing">Одяг та взуття</option>
-            <option value="sports">Спорт та відпочинок</option>
-            <option value="tools">Інструменти</option>
-            <option value="appliances">Побутова техніка</option>
-            <option value="toys">Іграшки</option>
-            <option value="books">Книги</option>
-            <option value="other">Інше</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="maxPrice">Максимальна ціна:</label>
-        <div class="price-input">
-            <input type="text" id="maxPrice" required>
-            <select id="maxPriceCurrency" class="currency-select">
-                <option value="UAH">₴</option>
-                <option value="USD">$</option>
-                <option value="EUR">€</option>
+        <div class="mb-3">
+            <label for="condition" class="form-label">Стан:</label>
+            <select class="form-select" id="condition" required>
+                <option value="Новий">Новий</option>
+                <option value="Вживаний">Вживаний</option>
             </select>
         </div>
-    </div>
-    <div class="form-group">
-        <label for="buyerDescription">Додатковий опис:</label>
-        <textarea id="buyerDescription" rows="4"></textarea>
-    </div>
-    <div class="form-group">
-        <label for="buyerContact">Контактні дані:</label>
-        <input type="text" id="buyerContact" required>
-    </div>
-    <div class="checkbox-group">
-        <label class="radio-option">
-            <input type="checkbox" id="isPinned" name="isPinned">
-            Закріпити оголошення на 3 доби за 30 грн
-        </label>
-    </div>
-    <button type="submit">Надіслати запит</button>
-</form>
-
-<!-- Форма для розділу "Продаж" -->
-<form id="sellingForm" style="display: none;">
-    <h2>Продаж товару</h2>
-    <div class="form-group">
-        <label for="itemName">Назва товару:</label>
-        <input type="text" id="itemName" required>
-    </div>
-    <div class="form-group">
-        <label for="sellingCategory">Категорія:</label>
-        <select id="sellingCategory" required>
-            <option value="">Оберіть категорію</option>
-            <option value="electronics">Електроніка</option>
-            <option value="furniture">Меблі</option>
-            <option value="transport">Транспорт</option>
-            <option value="clothing">Одяг та взуття</option>
-            <option value="sports">Спорт та відпочинок</option>
-            <option value="tools">Інструменти</option>
-            <option value="appliances">Побутова техніка</option>
-            <option value="toys">Іграшки</option>
-            <option value="books">Книги</option>
-            <option value="other">Інше</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="price">Ціна:</label>
-        <div class="price-input">
-            <input type="text" id="price">
-            <select id="priceCurrency" class="currency-select">
-                <option value="UAH">₴</option>
-                <option value="USD">$</option>
-                <option value="EUR">€</option>
-            </select>
-            <label class="radio-option">
-                <input type="checkbox" id="isNegotiable" name="isNegotiable"> Торг
-            </label>
+        <div class="mb-3">
+            <label for="sellerDescription" class="form-label">Опис товару:</label>
+            <textarea class="form-control" id="sellerDescription" rows="4" required></textarea>
         </div>
-        <div class="radio-group" style="display: flex; flex-direction: column;">
-            <div class="radio-option">
-                <label>
-                    <input type="radio" name="priceType" id="specifiedPrice" value="specifiedPrice" checked>
-                    Вказати ціну
-                </label>
-            </div>
-            <div class="radio-option">
-                <label>
-                    <input type="radio" name="priceType" id="negotiablePrice" value="negotiablePrice">
-                    Договірна
-                </label>
-            </div>
-            <div class="radio-option">
-                <label>
-                    <input type="radio" name="priceType" id="isFree" value="isFree">
-                    Віддам даром
+        <div class="mb-3">
+            <label for="sellerContact" class="form-label">Контактні дані:</label>
+            <input type="text" class="form-control" id="sellerContact" required>
+        </div>
+        <div class="checkbox-group">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="isPinnedSelling" name="isPinned">
+                <label class="form-check-label" for="isPinnedSelling">
+                    Закріпити оголошення на 3 доби за 30 грн
                 </label>
             </div>
         </div>
-    <div class="form-group">
-        <label for="condition">Стан:</label>
-        <select id="condition" required>
-            <option value="Новий">Новий</option>
-            <option value="Вживаний">Вживаний</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="sellerDescription">Опис товару:</label>
-        <textarea id="sellerDescription" rows="4" required></textarea>
-    </div>
-    <div class="form-group">
-        <label for="sellerContact">Контактні дані:</label>
-        <input type="text" id="sellerContact" required>
-    </div>
-    <div class="checkbox-group">
-        <label class="radio-option">
-            <input type="checkbox" id="isPinned" name="isPinned">
-            Закріпити оголошення на 3 доби за 30 грн
-        </label>
-    </div>
-    <button type="submit">Розмістити оголошення</button>
-</form>
+        <button type="submit" class="btn btn-primary w-100">Розмістити оголошення</button>
+    </form>
+</div>
 
 <script>
     let tg = window.Telegram.WebApp;
@@ -307,26 +301,25 @@
         const isNegotiableCheckbox = document.querySelector('#isNegotiable');
 
         if (negotiableRadio && freeRadio && specifiedPriceRadio && priceInput && priceCurrency && isNegotiableCheckbox) {
-        const updatePriceField = () => {
-            const isDisabled = negotiableRadio.checked || freeRadio.checked;
-            priceInput.disabled = isDisabled;
-            priceCurrency.disabled = isDisabled;
-            isNegotiableCheckbox.disabled = isDisabled;
-            priceInput.required = !isDisabled;
-            
-            if (isDisabled) {
-                priceInput.value = '';
-                isNegotiableCheckbox.checked = false;
-            }
-        };
+            const updatePriceField = () => {
+                const isDisabled = negotiableRadio.checked || freeRadio.checked;
+                priceInput.disabled = isDisabled;
+                priceCurrency.disabled = isDisabled;
+                isNegotiableCheckbox.disabled = isDisabled;
+                priceInput.required = !isDisabled;
+                
+                if (isDisabled) {
+                    priceInput.value = '';
+                    isNegotiableCheckbox.checked = false;
+                }
+            };
 
-        negotiableRadio.addEventListener('change', updatePriceField);
-        freeRadio.addEventListener('change', updatePriceField);
-        specifiedPriceRadio.addEventListener('change', updatePriceField);
-        updatePriceField();
+            negotiableRadio.addEventListener('change', updatePriceField);
+            freeRadio.addEventListener('change', updatePriceField);
+            specifiedPriceRadio.addEventListener('change', updatePriceField);
+            updatePriceField();
+        }
     }
-}
-
 
     // Визначаємо, яку форму показувати
     function showForm() {
@@ -347,128 +340,102 @@
     }
 
     function updatePrice() {
-    const adType = document.getElementById('adType').value;
-    const duration = document.querySelector('input[name="duration"]:checked')?.value;
-    let totalPrice = 0;
+        const adType = document.getElementById('adType').value;
+        const duration = document.querySelector('input[name="duration"]:checked')?.value;
+        let totalPrice = 0;
 
-    // Базова ціна в залежності від типу реклами
-    if (adType === 'publication') {
-        totalPrice += 50;
-    } else if (adType === 'publication-pin') {
-        totalPrice += 250;
-    }
-
-    // Додаткова ціна в залежності від тривалості
-    if (duration) {
-        switch (duration) {
-            case '12':
-                totalPrice += 50;
-                break;
-            case '24':
-                totalPrice += 100;
-                break;
-            case '72':
-                totalPrice += 200;
-                break;
-            case '168':
-                totalPrice += 500;
-                break;
+        // Базова ціна в залежності від типу реклами
+        if (adType === 'publication') {
+            totalPrice += 50;
+        } else if (adType === 'publication-pin') {
+            totalPrice += 250;
         }
-    }
 
-    document.getElementById('totalPrice').textContent = totalPrice;
-    
+        // Додаткова ціна в залежності від тривалості
+        if (duration) {
+            switch (duration) {
+                case '12':
+                    totalPrice += 50;
+                    break;
+                case '24':
+                    totalPrice += 100;
+                    break;
+                case '72':
+                    totalPrice += 200;
+                    break;
+                case '168':
+                    totalPrice += 500;
+                    break;
+            }
+        }
+
+        document.getElementById('totalPrice').textContent = totalPrice;
+        
         // Зберігаємо ціну та тип в прихованих полях для відправки
         const formData = document.getElementById('advertisingForm');
         if (!formData.querySelector('#finalPrice')) {
-                const priceInput = document.createElement('input');
-                priceInput.type = 'hidden';
-                priceInput.id = 'finalPrice';
-                formData.appendChild(priceInput);
+            const priceInput = document.createElement('input');
+            priceInput.type = 'hidden';
+            priceInput.id = 'finalPrice';
+            formData.appendChild(priceInput);
         }
         document.getElementById('finalPrice').value = totalPrice;
     }
 
+    // Функція для форматування ціни
+    function formatPriceInput(input) {
+        // Видаляємо всі пробіли та замінюємо кому на крапку
+        let value = input.value.replace(/\s+/g, '').replace(',', '.');
 
-// Функція для форматування ціни
-function formatPriceInput(input) {
-    // Видаляємо всі пробіли та замінюємо кому на крапку
-    let value = input.value.replace(/\s+/g, '').replace(',', '.');
-
-    // Перевіряємо, чи введене значення є числом
-    if (!isNaN(value) && value.length > 0) {
-        // Форматуємо число з двома десятковими знаками та пробілами між тисячами
-        const formattedValue = parseFloat(value).toLocaleString('uk-UA', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-        });
-        input.value = formattedValue;
-    } else {
-        // Якщо введено недопустимі символи, очищаємо поле
-        input.value = '';
-    }
-}
-
-// Додаємо обробники подій для полів "Продаж" та "Купівля"
-function addPriceFormatting() {
-    // Поле "Продаж" (SellingForm)
-    const sellingPriceInput = document.querySelector('#sellingForm #price');
-    if (sellingPriceInput) {
-        // Форматуємо після завершення введення (на подію blur)
-        sellingPriceInput.addEventListener('blur', function() {
-            formatPriceInput(sellingPriceInput);
-        });
-
-        // Опціонально: Форматуємо під час введення (на подію input)
-        sellingPriceInput.addEventListener('input', function() {
-            // Дозволяємо вводити тільки числа, пробіли та крапки
-            sellingPriceInput.value = sellingPriceInput.value.replace(/[^0-9.,\s]/g, '');
-        });
+        // Перевіряємо, чи введене значення є числом
+        if (!isNaN(value) && value.length > 0) {
+            // Форматуємо число з двома десятковими знаками та пробілами між тисячами
+            const formattedValue = parseFloat(value).toLocaleString('uk-UA', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+            input.value = formattedValue;
+        } else {
+            // Якщо введено недопустимі символи, очищаємо поле
+            input.value = '';
+        }
     }
 
-    // Поле "Купівля" (BuyingForm)
-    const buyingMaxPriceInput = document.querySelector('#buyingForm #maxPrice');
-    if (buyingMaxPriceInput) {
-        // Форматуємо після завершення введення (на подію blur)
-        buyingMaxPriceInput.addEventListener('blur', function() {
-            formatPriceInput(buyingMaxPriceInput);
-        });
+    // Додаємо обробники подій для полів "Продаж" та "Купівля"
+    function addPriceFormatting() {
+        // Поле "Продаж" (SellingForm)
+        const sellingPriceInput = document.querySelector('#sellingForm #price');
+        if (sellingPriceInput) {
+            // Форматуємо після завершення введення (на подію blur)
+            sellingPriceInput.addEventListener('blur', function() {
+                formatPriceInput(sellingPriceInput);
+            });
 
-        // Опціонально: Форматуємо під час введення (на подію input)
-        buyingMaxPriceInput.addEventListener('input', function() {
-            // Дозволяємо вводити тільки числа, пробіли та крапки
-            buyingMaxPriceInput.value = buyingMaxPriceInput.value.replace(/[^0-9.,\s]/g, '');
-        });
+            // Опціонально: Форматуємо під час введення (на подію input)
+            sellingPriceInput.addEventListener('input', function() {
+                // Дозволяємо вводити тільки числа, пробіли та крапки
+                sellingPriceInput.value = sellingPriceInput.value.replace(/[^0-9.,\s]/g, '');
+            });
+        }
+
+        // Поле "Купівля" (BuyingForm)
+        const buyingMaxPriceInput = document.querySelector('#buyingForm #maxPrice');
+        if (buyingMaxPriceInput) {
+            // Форматуємо після завершення введення (на подію blur)
+            buyingMaxPriceInput.addEventListener('blur', function() {
+                formatPriceInput(buyingMaxPriceInput);
+            });
+
+            // Опціонально: Форматуємо під час введення (на подію input)
+            buyingMaxPriceInput.addEventListener('input', function() {
+                // Дозволяємо вводити тільки числа, пробіли та крапки
+                buyingMaxPriceInput.value = buyingMaxPriceInput.value.replace(/[^0-9.,\s]/g, '');
+            });
+        }
     }
-}
 
-// Викликаємо функцію додавання обробників після визначення всіх функцій
-addPriceFormatting();
-
-
-    // Оновлюємо обробник форми реклами
-    document.getElementById('advertisingForm')?.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const formData = {};
-        
-        // Збираємо всі поля форми
-        this.querySelectorAll('input, textarea, select').forEach(element => {
-            if (element.type === 'radio' && element.name === 'duration') {
-                if (element.checked) {
-                    formData['duration'] = element.value;
-                }
-            } else if (element.type !== 'radio') {
-                formData[element.id] = element.value;
-            }
-        });
-        
-        // Додаємо тип форми
-        formData.formType = 'advertising';
-        
-        // Відправляємо дані в Telegram
-        tg.sendData(JSON.stringify(formData));
-        tg.close();
-    });   
+    // Викликаємо функцію додавання обробників після визначення всіх функцій
+    addPriceFormatting();
 
     // Обробники подій для кожної форми
     const forms = ['announcementForm', 'advertisingForm', 'buyingForm', 'sellingForm'];
@@ -502,6 +469,21 @@ addPriceFormatting();
 
     // Показуємо потрібну форму при завантаженні
     showForm();
+
+    // Додайте цей код для анімації при завантаженні форми
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const form = document.querySelector('form[style="display: block;"]');
+        if (form) {
+            form.style.opacity = 0;
+            form.style.transform = 'translateY(20px)';
+            form.style.transition = 'opacity 0.5s, transform 0.5s';
+            
+            setTimeout(() => {
+                form.style.opacity = 1;
+                form.style.transform = 'translateY(0)';
+            }, 100);
+        }
+    });
 </script>
 
 </body>
