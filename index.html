@@ -443,53 +443,56 @@
             });
         }
     }
-
-    // Обробники подій для кожної форми
-    const forms = ['announcementForm', 'advertisingForm', 'buyingForm', 'sellingForm'];
-    document.getElementById('sellingForm')?.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const formData = {};
-    
-    // Збираємо всі поля форми
-    this.querySelectorAll('input, textarea, select').forEach(element => {
-        if (element.type === 'radio') {
-            if (element.checked) {
-                formData[element.name] = element.value;
+// Обробники подій для кожної форми
+const forms = ['announcementForm', 'advertisingForm', 'buyingForm', 'sellingForm'];
+forms.forEach(formId => {
+    document.getElementById(formId)?.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = {};
+        
+        // Збираємо всі поля форми
+        this.querySelectorAll('input, textarea, select').forEach(element => {
+            if (element.type === 'radio') {
+                if (element.checked) {
+                    formData[element.name] = element.value;
+                }
+            } else if (element.type === 'checkbox') {
+                formData[element.name || element.id] = element.checked;
+            } else if (!element.disabled) {
+                formData[element.name || element.id] = element.value;
             }
-        } else if (element.type === 'checkbox') {
-            formData[element.name || element.id] = element.checked;
-        } else if (!element.disabled) {
-            formData[element.name || element.id] = element.value;
+        });
+        
+        // Спеціальна обробка для форми продажу
+        if (formId === 'sellingForm') {
+            const priceType = document.querySelector('input[name="priceType"]:checked').value;
+            formData.priceType = priceType;
+            
+            if (priceType === 'specifiedPrice') {
+                formData.price = document.getElementById('price').value;
+                formData.priceCurrency = document.getElementById('priceCurrency').value;
+            } else if (priceType === 'negotiablePrice') {
+                formData.price = 'Договірна';
+            } else if (priceType === 'isFree') {
+                formData.price = 'Віддам даром';
+            }
+            
+            // Видаляємо зайві поля, якщо ціна не вказана
+            if (priceType !== 'specifiedPrice') {
+                delete formData.priceCurrency;
+                delete formData.isNegotiable;
+            }
         }
-    });
-    
-    // Спеціальна обробка для форми продажу
-    const priceType = document.querySelector('input[name="priceType"]:checked').value;
-    formData.priceType = priceType;
-    
-    if (priceType === 'specifiedPrice') {
-        formData.price = document.getElementById('price').value;
-        formData.priceCurrency = document.getElementById('priceCurrency').value;
-    } else if (priceType === 'negotiablePrice') {
-        formData.price = 'Договірна';
-    } else if (priceType === 'isFree') {
-        formData.price = 'Віддам даром';
-    }
-    
-    // Видаляємо зайві поля, якщо ціна не вказана
-    if (priceType !== 'specifiedPrice') {
-        delete formData.priceCurrency;
-        delete formData.isNegotiable;
-    }
-    
-    // Додаємо тип форми
-    formData.formType = 'selling';
-    
-    console.log(formData);
+        
+        // Додаємо тип форми
+        formData.formType = formId.replace('Form', '');
+        
+        console.log(formData);
 
-    // Відправляємо дані в Telegram
-    tg.sendData(JSON.stringify(formData));
-    tg.close();
+        // Відправляємо дані в Telegram
+        tg.sendData(JSON.stringify(formData));
+        tg.close();
+    });
 });
 
     // Показуємо потрібну форму при завантаженні
